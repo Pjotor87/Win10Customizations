@@ -19,6 +19,10 @@ function new-html5 {
 		$tempZipFilePath = "html5Boilerplate.zip"
 		
 		Write-Output ("Downloading boilerplate from: " + $html5BoilerplateDownloadLink)
+		if ([Net.ServicePointManager]::SecurityProtocol.ToString().Contains("Tls12") -eq $false){
+			Write-Output "Setting SecurityProtocol..."
+			[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+		}
 		wget $html5BoilerplateDownloadLink -OutFile $tempZipFilePath
 		
 		if(Test-Path $tempZipFilePath){
